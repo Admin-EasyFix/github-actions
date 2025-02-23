@@ -1,0 +1,25 @@
+name: Install Python Dependencies
+description: Installs Python project dependencies using pip
+
+inputs:
+  requirements-file:
+    description: "Path to the requirements file (default: requirements.txt)"
+    required: false
+    default: "requirements.txt"
+  extra-options:
+    description: "Additional options for pip"
+    required: false
+    default: "--upgrade"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f "${{ inputs.requirements-file }}" ]; then
+          pip install ${{ inputs.extra-options }} -r ${{ inputs.requirements-file }} || true
+        else
+          echo "WARNING: Requirements file not found, skipping dependencies installation."
+        fi

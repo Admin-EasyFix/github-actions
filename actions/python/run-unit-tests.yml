@@ -1,0 +1,21 @@
+name: Run Tests
+description: Runs unit tests with customizable parameters
+
+inputs:
+  test-directory:
+    description: "Directory where tests should be executed"
+    required: false
+    default: "."
+  test-command:
+    description: "Command to run the tests"
+    required: false
+    default: "pytest"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run unit tests
+      shell: bash
+      run: |
+        cd ${{ inputs.test-directory }}
+        ${{ inputs.test-command }}
