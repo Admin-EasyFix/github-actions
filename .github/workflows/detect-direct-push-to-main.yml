@@ -11,6 +11,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Detect Direct Push
-        uses: ./actions/general/detect-direct-push/action.yml@main
+        uses: ./actions/general/detect-direct-push/action.yml
