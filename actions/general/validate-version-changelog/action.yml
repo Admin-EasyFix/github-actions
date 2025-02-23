@@ -4,9 +4,6 @@ description: Ensures the VERSION and CHANGELOG.md files are updated
 runs:
   using: "composite"
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-
     - name: Validate VERSION file update
       shell: bash
       run: |

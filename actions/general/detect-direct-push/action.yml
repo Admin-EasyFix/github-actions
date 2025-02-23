@@ -4,9 +4,6 @@ description: Detects direct pushes to the branch and checks if a push is a pull 
 runs:
   using: "composite"
   steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-
     - name: Fetch Commit History
       shell: bash
       run: |
