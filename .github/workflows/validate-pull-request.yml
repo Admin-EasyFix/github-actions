@@ -13,4 +13,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Validate VERSION and CHANGELOG
-        uses: ./actions/general/validate-version-changelog
+        uses: actions/general/validate-version-changelog

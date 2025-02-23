@@ -13,4 +13,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Detect Direct Push
-        uses: ./actions/general/detect-direct-push
+        uses: actions/general/detect-direct-push
