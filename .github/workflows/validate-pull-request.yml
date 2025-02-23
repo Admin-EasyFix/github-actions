@@ -6,11 +6,11 @@ on:
       - main
 
 jobs:
-  detect-direct-push:
+  validate-pull-request:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Validate VERSION and CHANGELOG
-        uses: ./actions/general/validate-version-changelog
+        uses: ./actions/version-control/validate-version-changelog

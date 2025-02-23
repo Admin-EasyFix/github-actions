@@ -1,3 +1,6 @@
+## [0.2.0]
+    - **Update README.md**
+    
 ## [0.1.0]
     - **Detect Direct Push Action & Workflow**: Added an action and workflow to detect direct pushes to the `main` branch and check if the push is from a pull request merge or a direct commit.
   
