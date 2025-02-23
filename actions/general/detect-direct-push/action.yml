@@ -2,7 +2,7 @@ name: Detect Direct Push to Branch
 description: Detects direct pushes to the branch and checks if a push is a pull request merge or not.
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
