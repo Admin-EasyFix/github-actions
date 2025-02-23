@@ -1,0 +1,28 @@
+name: Validate VERSION and CHANGELOG
+description: Ensures the VERSION and CHANGELOG.md files are updated
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Validate VERSION file update
+      shell: bash
+      run: |
+        CURRENT_BRANCH=${{ github.head_ref }}
+        git fetch origin main
+        git fetch origin ${CURRENT_BRANCH}
+
+        if ! git diff --name-only origin/main..origin/${CURRENT_BRANCH} | grep -q "^VERSION$"; then
+          echo "ERROR: VERSION file not updated in this pull request."
+          exit 1
+        fi
+
+    - name: Validate CHANGELOG.md file update
+      shell: bash
+      run: |
+        if ! git diff --name-only origin/main..origin/${CURRENT_BRANCH} | grep -q "^CHANGELOG.md$"; then
+          echo "ERROR: CHANGELOG.md file not updated in this pull request."
+          exit 1
+        fi
