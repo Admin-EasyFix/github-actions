@@ -1,3 +1,6 @@
+## [0.3.0]
+    - **Remove setup actions**
+
 ## [0.2.0]
     - **Update README.md**
     
