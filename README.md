@@ -11,17 +11,15 @@ This repository contains a collection of reusable GitHub Actions designed to aut
 - **Description**: This action ensures that the `VERSION` and `CHANGELOG.md` files are updated in pull requests. It checks if these files are modified when a pull request is opened or synchronized, enforcing best practices for versioning and changelog management.
 
 ### 3. **Python Actions**
-These actions help with automating Python-related tasks such as linting, testing, environment setup, and dependency installation.
+These actions help with automating Python-related tasks such as linting, testing and dependency installation.
 
 - **Linting**: Runs `flake8` on Python code to enforce coding standards.
 - **Run Tests**: Executes unit tests using `pytest`.
-- **Setup Python**: Sets up the Python environment with the specified Python version.
 - **Install Dependencies**: Installs project dependencies from the `requirements.txt` file.
 
 ### 4. **Node.js Actions**
-These actions help automate tasks related to Node.js projects, including environment setup, dependency installation, testing, and building the app.
+These actions help automate tasks related to Node.js projects, including dependency installation, testing, and building the app.
 
-- **Setup Node.js**: Sets up the specified version of Node.js compatible with your project.
 - **Install Dependencies**: Installs project dependencies using `npm ci` for faster, deterministic installations in CI environments.
 - **Run Tests**: Executes tests using `npm test`.
 - **Build App**: Builds the app by installing dependencies and running the build command.
