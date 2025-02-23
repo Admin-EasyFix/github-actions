@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  detect-direct-push:
+  validate-pull-request:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
