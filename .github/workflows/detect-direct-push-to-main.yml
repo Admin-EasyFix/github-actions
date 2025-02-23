@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Detect Direct Push
-        uses: ./actions/general/detect-direct-push.yml@main
+        uses: ./actions/general/detect-direct-push/action.yml@main

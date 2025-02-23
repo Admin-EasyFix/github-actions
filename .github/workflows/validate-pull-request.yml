@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Validate VERSION and CHANGELOG
-        uses: ./actions/general/validate-version-changelog.yml@main
+        uses: ./actions/general/validate-version-changelog/action.yml@main
