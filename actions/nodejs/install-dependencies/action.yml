@@ -1,0 +1,10 @@
+name: Install Dependencies
+
+description: |
+  This action installs dependencies using npm ci.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install dependencies
+      run: npm ci

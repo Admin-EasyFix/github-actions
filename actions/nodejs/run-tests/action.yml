@@ -1,0 +1,10 @@
+name: Run Tests
+
+description: |
+  This action runs the tests using npm.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run tests
+      run: npm test -- --watchAll=false
