@@ -1,0 +1,37 @@
+name: Detect Direct Push to Branch
+description: Detects direct pushes to the branch and checks if a push is a pull request merge or not.
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Fetch Commit History
+      run: |
+        git fetch --unshallow --tags
+
+    - name: Check Push Source and Commit Type
+      shell: bash
+      run: |
+        LAST_COMMIT_HASH=$(git rev-parse HEAD)
+        COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+        PARENT_COMMIT_HASHES=$(git rev-list --parents -n 1 $LAST_COMMIT_HASH)
+        PARENT_COUNT=$(( $(echo $PARENT_COMMIT_HASHES | wc -w) - 1 ))
+
+        echo "Last commit hash: $LAST_COMMIT_HASH"
+        echo "Commit message: $COMMIT_MESSAGE"
+        echo "Parent commit hashes: $PARENT_COMMIT_HASHES"
+        echo "Parent count: $PARENT_COUNT"
+
+        if [[ "$PARENT_COUNT" -eq 2 ]]; then
+          if [[ "$COMMIT_MESSAGE" =~ "Merge pull request" ]]; then
+            PR_NUMBER=$(echo "$COMMIT_MESSAGE" | sed -n 's/.*Merge pull request #\([0-9]*\).*/\1/p')
+            echo "This is a pull request merge. PR number: $PR_NUMBER"
+          else
+            echo "This is a merge, but not a pull request merge."
+          fi
+        else
+          echo "Direct push detected. Failing the workflow..."
+          exit 1
+        fi

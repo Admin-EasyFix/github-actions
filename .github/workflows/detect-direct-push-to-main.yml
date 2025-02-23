@@ -1,0 +1,13 @@
+name: Detect Direct Pushes to Main
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  detect-direct-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Detect Direct Push
+        uses: ./actions/general/detect-direct-push.yml@main
