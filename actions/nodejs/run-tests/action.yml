@@ -7,4 +7,5 @@ runs:
   using: "composite"
   steps:
     - name: Run tests
+      shell: bash
       run: npm test -- --watchAll=false
