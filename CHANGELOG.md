@@ -1,3 +1,6 @@
+## [0.4.0]
+    - **Add shell specification in nodejs actions**
+
 ## [0.3.0]
     - **Remove setup actions**
 
