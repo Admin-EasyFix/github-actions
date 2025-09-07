@@ -1,0 +1,85 @@
+name: Validate Pull Request Version
+
+description: |
+  Ensures that the version of package.json and package-lock.json
+  is updated compared to main.
+
+inputs:
+  working-directory:
+    description: "Optional subdirectory where package.json lives"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Validate package.json version update
+      shell: bash
+      run: |
+        set -e
+
+        # Determine working directory
+        WORKDIR="${{ inputs.working-directory }}"
+        if [ -z "$WORKDIR" ]; then
+          WORKDIR="."  # default to repo root
+        fi
+        echo "Using working directory: $WORKDIR"
+
+        PACKAGE_JSON="$WORKDIR/package.json"
+
+        if [ ! -f "$PACKAGE_JSON" ]; then
+          echo "No package.json found in $WORKDIR. Skipping."
+          exit 0
+        fi
+
+        # Validate package.json version
+        MAIN_VERSION=$(git show origin/main:"$PACKAGE_JSON" | jq -r '.version')
+        PR_VERSION=$(jq -r '.version' "$PACKAGE_JSON")
+
+        echo "Main version: $MAIN_VERSION"
+        echo "PR version: $PR_VERSION"
+
+        if [ "$PR_VERSION" == "$MAIN_VERSION" ]; then
+          echo "❌ package.json version has not been updated!"
+          exit 1
+        fi
+
+        echo "✅ package.json version updated."
+
+    - name: Validate package-lock.json version update
+      shell: bash
+      run: |
+        set -e
+
+        # Determine working directory
+        WORKDIR="${{ inputs.working-directory }}"
+        if [ -z "$WORKDIR" ]; then
+          WORKDIR="."  # default to repo root
+        fi
+        echo "Using working directory: $WORKDIR"
+
+        PACKAGE_LOCK="$WORKDIR/package-lock.json"
+
+        if [ ! -f "$PACKAGE_LOCK" ]; then
+          echo "No package-lock.json found. Skipping."
+          exit 0
+        fi
+
+        # Validate package-lock.json version
+        MAIN_LOCK_VERSION=$(git show origin/main:"$PACKAGE_LOCK" | jq -r '.version')
+        PR_LOCK_VERSION=$(jq -r '.version' "$PACKAGE_LOCK")
+
+        echo "Main lock version: $MAIN_LOCK_VERSION"
+        echo "PR lock version: $PR_LOCK_VERSION"
+
+        if [ "$PR_LOCK_VERSION" == "$MAIN_LOCK_VERSION" ]; then
+          echo "❌ package-lock.json version has not been updated!"
+          exit 1
+        fi
+
+        echo "✅ package-lock.json version updated."

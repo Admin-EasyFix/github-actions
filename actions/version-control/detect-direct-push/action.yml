@@ -25,11 +25,11 @@ runs:
         if [[ "$PARENT_COUNT" -eq 2 ]]; then
           if [[ "$COMMIT_MESSAGE" =~ "Merge pull request" ]]; then
             PR_NUMBER=$(echo "$COMMIT_MESSAGE" | sed -n 's/.*Merge pull request #\([0-9]*\).*/\1/p')
-            echo "This is a pull request merge. PR number: $PR_NUMBER"
+            echo "✅ This is a pull request merge. PR number: $PR_NUMBER"
           else
-            echo "This is a merge, but not a pull request merge."
+            echo "✅ This is a merge, but not a pull request merge."
           fi
         else
-          echo "Direct push detected. Failing the workflow..."
+          echo "❌ Direct push detected. Failing the workflow..."
           exit 1
         fi
