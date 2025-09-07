@@ -1,4 +1,4 @@
-name: Build App
+name: Build
 
 description: |
   This action builds the application using npm.
@@ -6,10 +6,7 @@ description: |
 runs:
   using: "composite"
   steps:
-    - name: Clean npm cache and build app
+    - name: Build
       shell: bash
       run: |
-        rm -rf node_modules/.cache
-        npm cache clean --force
-        npm install
         npm run build
