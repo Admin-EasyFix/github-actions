@@ -1,3 +1,6 @@
+## [0.9.0]
+    - Use working-directory when evaluating version of main branch
+
 ## [0.8.0]
     - Better evaluate version of main branch
 
