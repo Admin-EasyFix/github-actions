@@ -8,4 +8,4 @@ runs:
   steps:
     - name: Run Typescript type check
       shell: bash
-      run: npm type-check --if-present
+      run: npm run type-check --if-present
