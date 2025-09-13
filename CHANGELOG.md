@@ -1,3 +1,6 @@
+## [0.6.0]
+    - **Run correctly the npm type-check**
+
 ## [0.5.0]
     - **Rename nodejs actions to npm actions**
     - **Simplify build action**
