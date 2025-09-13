@@ -8,4 +8,4 @@ runs:
   steps:
     - name: Run tests
       shell: bash
-      run: npm test -- --watchAll=false
+      run: npm run test --if-present -- --watchAll=false

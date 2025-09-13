@@ -1,0 +1,11 @@
+name: Run Type Check
+
+description: |
+  This action runs type checks using npm.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Typescript type check
+      shell: bash
+      run: npm type-check --if-present

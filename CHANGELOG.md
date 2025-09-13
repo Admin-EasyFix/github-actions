@@ -1,3 +1,9 @@
+## [0.5.0]
+    - **Rename nodejs actions to npm actions**
+    - **Simplify build action**
+    - **Add lint and type-check actions**
+    - **Add --if-present where needed**
+
 ## [0.4.0]
     - **Add shell specification in nodejs actions**
 

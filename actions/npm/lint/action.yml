@@ -1,0 +1,11 @@
+name: Run Lint
+
+description: |
+  This action runs type checks using npm.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run ESLint
+      shell: bash
+      run: npm run lint --if-present

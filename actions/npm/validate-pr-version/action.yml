@@ -1,0 +1,38 @@
+name: Validate package version
+
+description: |
+  Ensures that the version of package.json in pull request is updated compared to main.
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Validate package.json version update
+      shell: bash
+      run: |
+        set -e
+
+        PACKAGE_JSON="package.json"
+
+        if [ ! -f "$PACKAGE_JSON" ]; then
+          echo "No package.json found at repo root. Skipping."
+          exit 0
+        fi
+
+        # Validate package.json version
+        MAIN_VERSION=$(git show origin/main:"$PACKAGE_JSON" | jq -r '.version')
+        PR_VERSION=$(jq -r '.version' "$PACKAGE_JSON")
+
+        echo "Main version: $MAIN_VERSION"
+        echo "PR version: $PR_VERSION"
+
+        if [ "$PR_VERSION" == "$MAIN_VERSION" ]; then
+          echo "❌ package.json version has not been updated!"
+          exit 1
+        fi
+
+        echo "✅ package.json version updated."
