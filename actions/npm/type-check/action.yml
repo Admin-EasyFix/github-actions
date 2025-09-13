@@ -3,9 +3,16 @@ name: Run Type Check
 description: |
   This action runs type checks using npm.
 
+inputs:
+  working-directory:
+    description: 'Working directory'
+    required: false
+    default: '.'
+
 runs:
   using: "composite"
   steps:
     - name: Run Typescript type check
       shell: bash
       run: npm run type-check --if-present
+      working-directory: ${{ inputs.working-directory }}

@@ -1,6 +1,12 @@
 name: Lint Python Code
 description: Runs flake8 for linting
 
+inputs:
+  working-directory:
+    description: 'Working directory'
+    required: false
+    default: '.'
+
 runs:
   using: "composite"
   steps:
@@ -10,3 +16,4 @@ runs:
         pip install flake8
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      working-directory: ${{ inputs.working-directory }}

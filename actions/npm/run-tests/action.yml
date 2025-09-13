@@ -2,6 +2,12 @@ name: Run Tests
 
 description: |
   This action runs the tests using npm.
+  
+inputs:
+  working-directory:
+    description: 'Working directory'
+    required: false
+    default: '.'
 
 runs:
   using: "composite"
@@ -9,3 +15,4 @@ runs:
     - name: Run tests
       shell: bash
       run: npm run test --if-present -- --watchAll=false
+      working-directory: ${{ inputs.working-directory }}
