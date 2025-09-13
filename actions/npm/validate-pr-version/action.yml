@@ -29,8 +29,9 @@ runs:
           exit 0
         fi
 
-        # Validate package.json version
-        MAIN_VERSION=$(git show origin/main:"$PACKAGE_JSON" | jq -r '.version')
+        BASE_BRANCH="${{ github.event.pull_request.base.ref }}"
+
+        MAIN_VERSION=$(git show "$BASE_BRANCH:$PACKAGE_JSON" | jq -r '.version')
         PR_VERSION=$(jq -r '.version' "$PACKAGE_JSON")
 
         echo "Main version: $MAIN_VERSION"
