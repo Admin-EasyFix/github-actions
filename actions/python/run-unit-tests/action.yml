@@ -10,6 +10,10 @@ inputs:
     description: "Command to run the tests"
     required: false
     default: "pytest"
+  working-directory:
+    description: 'Working directory'
+    required: false
+    default: '.'
 
 runs:
   using: "composite"
@@ -19,3 +23,4 @@ runs:
       run: |
         cd ${{ inputs.test-directory }}
         ${{ inputs.test-command }}
+      working-directory: ${{ inputs.working-directory }}

@@ -10,6 +10,10 @@ inputs:
     description: "Additional options for pip"
     required: false
     default: "--upgrade"
+  working-directory:
+    description: 'Working directory'
+    required: false
+    default: '.'
 
 runs:
   using: "composite"
@@ -23,3 +27,4 @@ runs:
         else
           echo "WARNING: Requirements file not found, skipping dependencies installation."
         fi
+      working-directory: ${{ inputs.working-directory }}
