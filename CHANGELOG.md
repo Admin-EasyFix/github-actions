@@ -1,3 +1,6 @@
+## [0.7.0]
+    - **Add input working-directory in every composite**
+
 ## [0.6.0]
     - **Run correctly the npm type-check**
 
