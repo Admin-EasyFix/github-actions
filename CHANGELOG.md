@@ -1,3 +1,6 @@
+## [0.10.1]
+    - Do not cd to working directory
+
 ## [0.10.0]
     - Add npm action that auto bumps version
     - Fix the version comparison
