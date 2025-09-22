@@ -1,3 +1,7 @@
+## [0.10.0]
+    - Add npm action that auto bumps version
+    - Fix the version comparison
+
 ## [0.9.0]
     - Use working-directory when evaluating version of main branch
 

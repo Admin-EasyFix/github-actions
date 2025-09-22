@@ -1,0 +1,72 @@
+name: Auto Version Bump
+description: |
+  Automatically bumps package.json version based on PR title using Conventional Commits:
+  - `!` or `BREAKING CHANGE:` → major
+  - `feat:` → minor
+  - default → patch
+  Skips bump if PR version is already ahead of main.
+
+inputs:
+  working-directory:
+    description: "Working directory"
+    required: false
+    default: "."
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+
+    - name: Auto bump version
+      shell: bash
+      run: |
+        set -e
+        cd "${{ inputs.working-directory }}"
+
+        PACKAGE_JSON="package.json"
+
+        BASE_BRANCH="${{ github.event.pull_request.base.ref }}"
+        WORKDIR="${{ inputs.working-directory }}"
+        MAIN_VERSION=$(git show "origin/$BASE_BRANCH:$WORKDIR/$PACKAGE_JSON" | jq -r '.version')
+        PR_VERSION=$(jq -r '.version' "$PACKAGE_JSON")
+
+        echo "Main version: $MAIN_VERSION"
+        echo "PR version: $PR_VERSION"
+
+        if npx semver -r ">$MAIN_VERSION" "$PR_VERSION" > /dev/null; then
+          echo "✅ PR version ($PR_VERSION) is already ahead of main ($MAIN_VERSION). Skipping bump."
+          exit 0
+        fi
+
+        TITLE="${{ github.event.pull_request.title }}"
+        echo "PR title: $TITLE"
+
+        if [[ "$TITLE" == *"!"* ]] || [[ "$TITLE" == *"BREAKING CHANGE:"* ]]; then
+          BUMP="major"
+        elif [[ "$TITLE" == feat:* ]]; then
+          BUMP="minor"
+        else
+          BUMP="patch"
+        fi
+
+        echo "Bumping version: $BUMP"
+        npm version $BUMP --no-git-tag-version
+
+        NEW_VERSION=$(jq -r '.version' package.json)
+        echo "New version: $NEW_VERSION"
+
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+        git add package.json package-lock.json || true
+        git commit -m "chore(release): bump $BUMP version to $NEW_VERSION [skip ci]" || echo "No version changes detected"
+        git push
+      working-directory: ${{ inputs.working-directory }}
