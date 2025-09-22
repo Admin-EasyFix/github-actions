@@ -29,9 +29,13 @@ runs:
       shell: bash
       run: |
         set -e
-        cd "${{ inputs.working-directory }}"
-
+ 
         PACKAGE_JSON="package.json"
+
+        if [ ! -f "$PACKAGE_JSON" ]; then
+          echo "No package.json found at repo root. Skipping."
+          exit 0
+        fi
 
         BASE_BRANCH="${{ github.event.pull_request.base.ref }}"
         WORKDIR="${{ inputs.working-directory }}"
