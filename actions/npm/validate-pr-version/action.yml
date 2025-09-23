@@ -16,6 +16,7 @@ runs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
+        ref: ${{ github.head_ref }}
 
     - name: Validate package.json version update
       shell: bash
