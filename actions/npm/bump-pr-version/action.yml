@@ -72,6 +72,6 @@ runs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
         git add package.json package-lock.json || true
-        git commit -m "chore(release): bump $BUMP version to $NEW_VERSION [skip ci]" || echo "No version changes detected"
+        git commit -m "chore(release): bump $BUMP version to $NEW_VERSION" || echo "No version changes detected"
         git push origin HEAD:${{ github.head_ref }}
       working-directory: ${{ inputs.working-directory }}
