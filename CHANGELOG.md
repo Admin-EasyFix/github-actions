@@ -1,3 +1,6 @@
+## [0.10.3]
+    - Check out the PR branch tip (github.head_ref) in your   validation action, instead of the triggering commit SHA.
+
 ## [0.10.2]
     - Fix version pushing of auto bumping
 
