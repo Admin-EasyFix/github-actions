@@ -1,3 +1,6 @@
+## [0.10.3]
+    - Do not skip ci after pushing version bump
+
 ## [0.10.2]
     - Fix version pushing of auto bumping
 
