@@ -19,6 +19,7 @@ runs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        ref: ${{ github.head_ref }}
 
     - name: Setup Node.js
       uses: actions/setup-node@v3
@@ -72,5 +73,5 @@ runs:
 
         git add package.json package-lock.json || true
         git commit -m "chore(release): bump $BUMP version to $NEW_VERSION [skip ci]" || echo "No version changes detected"
-        git push
+        git push origin HEAD:${{ github.head_ref }}
       working-directory: ${{ inputs.working-directory }}

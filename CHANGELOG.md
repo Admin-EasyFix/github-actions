@@ -1,3 +1,6 @@
+## [0.10.2]
+    - Fix version pushing of auto bumping
+
 ## [0.10.1]
     - Do not cd to working directory
 
