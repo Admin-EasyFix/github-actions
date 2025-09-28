@@ -1,3 +1,6 @@
+## [0.10.6]
+    - Use glob-style match for feat detection in version bumping
+
 ## [0.10.5]
     - Fix feat detection regex for version bumping
 
