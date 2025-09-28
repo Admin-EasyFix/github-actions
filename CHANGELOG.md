@@ -1,3 +1,6 @@
+## [0.10.5]
+    - Fix feat detection regex for version bumping
+
 ## [0.10.4]
     - Update feat detection regex for version bumping
 
