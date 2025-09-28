@@ -56,7 +56,7 @@ runs:
 
         if [[ "$TITLE" == *"!"* ]] || [[ "$TITLE" == *"BREAKING CHANGE:"* ]]; then
           BUMP="major"
-        elif [[ "$TITLE" =~ ^feat(\([^)]+\))?: ]]; then
+        elif [[ "$TITLE" =~ ^feat\(\([^)]+\)\)?: ]]; then
           BUMP="minor"
         else
           BUMP="patch"
